@@ -1,1 +1,1 @@
-# assembly_file
+# Read/write file in MIPS assembly
