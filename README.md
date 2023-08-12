@@ -12,6 +12,8 @@ This program contains the following functions:
 
 ``close_file`` This function receives the file descriptor as a parameter. The purpose of this function, as the name says, is to close the connection with the file.
 
+An interesting aspect of the created functions is that they can call other functions within their pois, this is to safeguard the context.
+
 Here I leave a very useful link for the development of applications based on the mips assembly language.
 
 [Official MARS Documentation] https://courses.missouristate.edu/kenvollmar/mars/Help/Help_4_1/SyscallHelp.html
