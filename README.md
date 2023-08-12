@@ -14,6 +14,27 @@ This program contains the following functions:
 
 An interesting aspect of the created functions is that they can call other functions within their pois, this is to safeguard the context.
 
-Here I leave a very useful link for the development of applications based on the mips assembly language.
+Here I leave a very useful link for the development of applications based on the mips assembly language. For example in the function close_file
+
+```assembly
+close_file:
+	# push
+	addi 	$sp,$sp, -12		# space in stack 3 words
+	sw 	$ra, 8($sp) 		# save ret addr
+	sw 	$a0, 4($sp) 		# save the file descriptor
+	
+	# body
+	li	$v0, 16			# ask the system to close the file
+	syscall
+	
+	# pop
+	lw 	$a0, 4($sp) 		# get the file descriptor
+	lw 	$ra, 8($sp) 		# get the ret addr
+	addi	$sp, $sp, 12 		# free stack
+	jr	$ra			# jump to caller
+```
+First we must make space on the stack to save all the records. Among this record, $ra stands out, which contains the address from where the function was called. With this record we managed to return from where we were called. That is, if we called another function inside file_close, the $ra would change, but we managed to restore it because we saved it on the stack.
+
+At the end of the execution we do the pop, that is, leave all the registers as we found them at the beginning of the execution of the function.
 
 [Official MARS Documentation] https://courses.missouristate.edu/kenvollmar/mars/Help/Help_4_1/SyscallHelp.html
